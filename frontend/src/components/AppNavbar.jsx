@@ -12,7 +12,7 @@ export default function AppNavbar() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('keyword') || '');
-  const { user, isLoggedIn, logout } = useAuth();
+  const { user, isLoggedIn, isAdmin, logout } = useAuth();
   const { itemCount, openDrawer } = useCart();
   const { showToast } = useToast();
 
@@ -83,6 +83,13 @@ export default function AppNavbar() {
             <li className="nav-item">
               <NavLink to="/products" className="nav-link">Shop</NavLink>
             </li>
+            {isAdmin && (
+              <li className="nav-item">
+                <NavLink to="/admin" className="nav-link">
+                  <i className="bi bi-speedometer2 me-1" />Admin
+                </NavLink>
+              </li>
+            )}
           </ul>
 
           <form className="nav-search position-relative my-3 my-lg-0" role="search" onSubmit={handleSearch}>
@@ -117,6 +124,18 @@ export default function AppNavbar() {
                     <div className="small">{user.email}</div>
                   </li>
                   <li><hr className="dropdown-divider" /></li>
+                  {isAdmin && (
+                    <li>
+                      <Link className="dropdown-item fw-semibold" to="/admin" data-testid="nav-admin">
+                        <i className="bi bi-speedometer2 me-2" />Admin dashboard
+                      </Link>
+                    </li>
+                  )}
+                  <li>
+                    <Link className="dropdown-item" to="/orders" data-testid="nav-orders">
+                      <i className="bi bi-receipt me-2" />My orders
+                    </Link>
+                  </li>
                   <li>
                     <Link className="dropdown-item" to="/cart">
                       <i className="bi bi-bag me-2" />My cart

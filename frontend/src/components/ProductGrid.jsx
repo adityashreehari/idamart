@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import ProductCard from './ProductCard.jsx';
+import QuickViewModal from './QuickViewModal.jsx';
 
 /** Responsive grid: 2 columns on phones, 3 on tablets, 4 on laptops. */
 export default function ProductGrid({ products, loading, skeletonCount = 8 }) {
+  const [quickViewProduct, setQuickViewProduct] = useState(null);
+
   if (loading) {
     return (
       <div className="row g-3 g-md-4" aria-busy="true">
@@ -22,12 +26,15 @@ export default function ProductGrid({ products, loading, skeletonCount = 8 }) {
   }
 
   return (
-    <div className="row g-3 g-md-4">
-      {products.map((product) => (
-        <div className="col-6 col-md-4 col-xl-3" key={product.id}>
-          <ProductCard product={product} />
-        </div>
-      ))}
-    </div>
+    <>
+      <div className="row g-3 g-md-4">
+        {products.map((product) => (
+          <div className="col-6 col-md-4 col-xl-3" key={product.id}>
+            <ProductCard product={product} onQuickView={setQuickViewProduct} />
+          </div>
+        ))}
+      </div>
+      <QuickViewModal product={quickViewProduct} onClose={() => setQuickViewProduct(null)} />
+    </>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ProductImage from '../components/ProductImage.jsx';
 import QuantityStepper from '../components/QuantityStepper.jsx';
 import { useCart } from '../context/CartContext.jsx';
@@ -9,9 +9,10 @@ import { formatPrice, getErrorMessage } from '../utils/format';
 const MAX_PER_ITEM = 10;
 
 export default function CartPage() {
-  const { cart, loading, updateQuantity, removeItem, clearCart } = useCart();
+  const { cart, ready, updateQuantity, removeItem, clearCart } = useCart();
   const { showToast } = useToast();
   const [busyId, setBusyId] = useState(null); // which line is being updated
+  const navigate = useNavigate();
 
   async function run(productId, action, successMessage) {
     setBusyId(productId);
@@ -30,7 +31,7 @@ export default function CartPage() {
     await run('all', clearCart, 'Cart cleared');
   }
 
-  if (loading && cart.items.length === 0) {
+  if (!ready) {
     return (
       <div className="container py-5 text-center">
         <div className="spinner-border" role="status" style={{ color: 'var(--ida-accent)' }}>
@@ -150,13 +151,17 @@ export default function CartPage() {
               <span className="fw-semibold">Total</span>
               <span className="price fs-4" data-testid="summary-total">{formatPrice(cart.totalAmount)}</span>
             </div>
-            {/* Session 8 adds the checkout page */}
-            <button className="btn btn-ida btn-lg w-100" disabled data-testid="checkout-button">
-              Checkout
+            <button
+              className="btn btn-ida btn-lg w-100"
+              onClick={() => navigate('/checkout')}
+              disabled={hasProblems || busyId !== null}
+              data-testid="checkout-button"
+            >
+              Checkout <i className="bi bi-arrow-right ms-1" />
             </button>
-            <p className="small text-muted text-center mt-2 mb-0">
-              <i className="bi bi-info-circle me-1" />Checkout opens in the next update.
-            </p>
+            {hasProblems && (
+              <p className="small text-danger text-center mt-2 mb-0">Fix the stock issues above to continue.</p>
+            )}
           </div>
         </div>
       </div>

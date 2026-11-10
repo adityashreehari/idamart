@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Naruto Uzumaki Sage Mode Figure">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f97316"/>
+      <stop offset="1" stop-color="#883f0c"/>
+    </linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2" fill="#fff" opacity=".12"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <rect width="600" height="600" fill="url(#dots)"/>
+  <circle cx="520" cy="80" r="140" fill="#fff" opacity=".07"/>
+  <circle cx="60" cy="560" r="160" fill="#000" opacity=".08"/>
+  <ellipse cx="300" cy="455" rx="120" ry="22" fill="#883f0c" opacity=".55"/>
+  <rect x="200" y="410" width="200" height="45" rx="10" fill="#883f0c"/>
+  <rect x="200" y="410" width="200" height="12" rx="6" fill="#fff" opacity=".18"/>
+  <g fill="#fff">
+    <circle cx="300" cy="185" r="42"/>
+    <path d="M300 232c-46 0-72 30-72 70v28h28l-6 80h100l-6-80h28v-28c0-40-26-70-72-70z"/>
+    <path d="M232 262l-58-58 20-20 62 50z"/><path d="M368 262l58-58-20-20-62 50z"/>
+  </g>
+  <g fill="#fbb27e" opacity=".9"><path d="M160 150l8 18 20 2-15 13 5 19-18-10-18 10 5-19-15-13 20-2z"/>
+  <path d="M440 120l6 13 14 2-10 9 3 14-13-7-13 7 3-14-10-9 14-2z"/></g>
+  <rect x="0" y="508" width="600" height="92" fill="#000" opacity=".18"/>
+  <text x="32" y="547" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="#fff" opacity=".75">NARUTO</text>
+  <text x="32" y="578" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#fff" opacity=".6">Figures · IdaMart</text>
+</svg>

@@ -10,6 +10,10 @@ import ProductDetailPage from './pages/ProductDetailPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import CartPage from './pages/CartPage.jsx';
+import CheckoutPage from './pages/CheckoutPage.jsx';
+import OrdersPage from './pages/OrdersPage.jsx';
+import OrderDetailPage from './pages/OrderDetailPage.jsx';
+import AdminPage from './pages/admin/AdminPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
 /**
@@ -35,6 +39,14 @@ export default function App() {
           {/* Logged-in users only */}
           <Route element={<ProtectedRoute />}>
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/orders" element={<OrdersPage />} />
+            <Route path="/orders/:id" element={<OrderDetailPage />} />
+          </Route>
+
+          {/* Admins only */}
+          <Route element={<ProtectedRoute adminOnly />}>
+            <Route path="/admin" element={<AdminPage />} />
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />

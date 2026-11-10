@@ -13,8 +13,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +23,8 @@ import java.util.Map;
  * Turn it off with app.seed.enabled=false (or the SEED_DATA=false environment variable).
  *
  * Product names are descriptive demo listings, not official licensed products.
- * Images are simple placeholders; the admin can replace imageUrl later.
+ * Images are original artwork shipped with the website (frontend/public/images/products),
+ * so they always load and carry no copyright risk. The admin can replace imageUrl later.
  */
 @Component
 @RequiredArgsConstructor
@@ -42,6 +41,7 @@ public class DataSeeder implements CommandLineRunner {
     /** A small, readable way to describe one demo product. */
     private record SeedProduct(String name, String anime, String category, String price,
                                int stock, String color, String description) {
+        // color = the main colour of the product's picture (frontend/public/images/products)
     }
 
     private static final Map<String, String> CATEGORIES = Map.of(
@@ -121,8 +121,17 @@ public class DataSeeder implements CommandLineRunner {
                                 Category.builder().name(name).description(description).build()))));
 
         int added = 0;
+        int imagesUpdated = 0;
         for (SeedProduct sp : PRODUCTS) {
-            if (productRepository.existsByNameIgnoreCase(sp.name())) {
+            var existing = productRepository.findFirstByNameIgnoreCase(sp.name());
+            if (existing.isPresent()) {
+                // Products seeded before Session 8 used an external placeholder site.
+                // Move them to the local images, but never touch an image the admin chose.
+                Product product = existing.get();
+                if (product.getImageUrl() == null || product.getImageUrl().startsWith(OLD_PLACEHOLDER_HOST)) {
+                    product.setImageUrl(localImage(sp.name()));
+                    imagesUpdated++;
+                }
                 continue;
             }
             productRepository.save(Product.builder()
@@ -132,7 +141,7 @@ public class DataSeeder implements CommandLineRunner {
                     .price(new BigDecimal(sp.price()))
                     .stock(sp.stock())
                     .description(sp.description())
-                    .imageUrl(placeholderImage(sp.name(), sp.color()))
+                    .imageUrl(localImage(sp.name()))
                     .active(true)
                     .build());
             added++;
@@ -140,10 +149,18 @@ public class DataSeeder implements CommandLineRunner {
         if (added > 0) {
             log.info("Demo catalogue: added {} products", added);
         }
+        if (imagesUpdated > 0) {
+            log.info("Demo catalogue: switched {} products to local images", imagesUpdated);
+        }
     }
 
-    private static String placeholderImage(String text, String background) {
-        String encoded = URLEncoder.encode(text, StandardCharsets.UTF_8);
-        return "https://placehold.co/600x600/" + background + "/ffffff/png?text=" + encoded;
+    private static final String OLD_PLACEHOLDER_HOST = "https://placehold.co/";
+
+    /** "Monkey D. Luffy Gear 5 Figure" -> "/images/products/monkey-d-luffy-gear-5-figure.svg" */
+    static String localImage(String productName) {
+        String slug = productName.toLowerCase()
+                .replaceAll("[^a-z0-9]+", "-")
+                .replaceAll("(^-|-$)", "");
+        return "/images/products/" + slug + ".svg";
     }
 }

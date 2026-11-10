@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Jujutsu High Uniform T-Shirt">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#101620"/>
+    </linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2" fill="#fff" opacity=".12"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <rect width="600" height="600" fill="url(#dots)"/>
+  <circle cx="520" cy="80" r="140" fill="#fff" opacity=".07"/>
+  <circle cx="60" cy="560" r="160" fill="#000" opacity=".08"/>
+  <path d="M240 145c15 30 105 30 120 0l90 50-35 80-45-22v207H230V253l-45 22-35-80z" fill="#fff"/>
+  <path d="M245 145c20 38 90 38 110 0" fill="none" stroke="#101620" stroke-width="10"/>
+  <path d="M300 290l14 28 31 4-22 21 6 31-29-15-29 15 6-31-22-21 31-4z" fill="#838993"/>
+  <rect x="0" y="508" width="600" height="92" fill="#000" opacity=".18"/>
+  <text x="32" y="547" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="#fff" opacity=".75">JUJUTSU KAISEN</text>
+  <text x="32" y="578" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#fff" opacity=".6">Apparel · IdaMart</text>
+</svg>

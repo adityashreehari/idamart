@@ -18,9 +18,13 @@ const CartContext = createContext(null);
 const EMPTY_CART = { items: [], totalItems: 0, totalAmount: 0 };
 
 export function CartProvider({ children }) {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, initializing } = useAuth();
   const [cart, setCart] = useState(EMPTY_CART);
   const [loading, setLoading] = useState(false);
+  // Which login state the loaded cart belongs to (null = nothing loaded yet).
+  // "ready" only when the login check has finished AND the cart matches it,
+  // so a page refresh never shows an empty cart for a split second.
+  const [loadedFor, setLoadedFor] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const refreshCart = useCallback(async () => {
@@ -38,9 +42,15 @@ export function CartProvider({ children }) {
 
   // Load the cart when someone logs in; empty it when they log out
   useEffect(() => {
-    refreshCart().catch(() => setCart(EMPTY_CART));
+    if (initializing) return;
+    setLoadedFor(null);
+    refreshCart()
+      .catch(() => setCart(EMPTY_CART))
+      .finally(() => setLoadedFor(isLoggedIn));
     if (!isLoggedIn) setDrawerOpen(false);
-  }, [refreshCart, isLoggedIn]);
+  }, [refreshCart, isLoggedIn, initializing]);
+
+  const ready = !initializing && loadedFor === isLoggedIn;
 
   const addItem = useCallback(async (productId, quantity = 1) => {
     const updated = await addToCartRequest(productId, quantity);
@@ -66,6 +76,7 @@ export function CartProvider({ children }) {
       cart,
       itemCount: cart.totalItems,
       loading,
+      ready,
       refreshCart,
       addItem,
       updateQuantity,
@@ -75,7 +86,7 @@ export function CartProvider({ children }) {
       openDrawer: () => setDrawerOpen(true),
       closeDrawer: () => setDrawerOpen(false),
     }),
-    [cart, loading, refreshCart, addItem, updateQuantity, removeItem, clearCart, drawerOpen],
+    [cart, loading, ready, refreshCart, addItem, updateQuantity, removeItem, clearCart, drawerOpen],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

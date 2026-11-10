@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -41,6 +42,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     boolean existsByCategoryId(Long categoryId);
 
     boolean existsByNameIgnoreCase(String name);
+
+    Optional<Product> findFirstByNameIgnoreCase(String name);
+
+    // ---- admin dashboard counts (Spring writes the COUNT queries from the method names) ----
+
+    long countByActiveTrue();
+
+    long countByActiveTrueAndStock(int stock);
+
+    long countByActiveTrueAndStockBetween(int min, int max);
 
     /**
      * Loads products AND locks their rows until the transaction ends (SELECT ... FOR UPDATE).

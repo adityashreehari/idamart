@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Anya Forger Plush">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f472b6"/>
+      <stop offset="1" stop-color="#863e64"/>
+    </linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2" fill="#fff" opacity=".12"/>
+    </pattern>
+  </defs>
+  <rect width="600" height="600" fill="url(#bg)"/>
+  <rect width="600" height="600" fill="url(#dots)"/>
+  <circle cx="520" cy="80" r="140" fill="#fff" opacity=".07"/>
+  <circle cx="60" cy="560" r="160" fill="#000" opacity=".08"/>
+  <circle cx="215" cy="180" r="48" fill="#fff"/><circle cx="385" cy="180" r="48" fill="#fff"/>
+  <circle cx="215" cy="180" r="24" fill="#f8b1d6"/><circle cx="385" cy="180" r="24" fill="#f8b1d6"/>
+  <ellipse cx="300" cy="310" rx="150" ry="140" fill="#fff"/>
+  <circle cx="250" cy="295" r="14" fill="#863e64"/><circle cx="350" cy="295" r="14" fill="#863e64"/>
+  <circle cx="255" cy="290" r="4" fill="#fff"/><circle cx="355" cy="290" r="4" fill="#fff"/>
+  <ellipse cx="225" cy="335" rx="20" ry="11" fill="#f8b1d6" opacity=".7"/>
+  <ellipse cx="375" cy="335" rx="20" ry="11" fill="#f8b1d6" opacity=".7"/>
+  <path d="M282 335q18 18 36 0" fill="none" stroke="#863e64" stroke-width="6" stroke-linecap="round"/>
+  <rect x="0" y="508" width="600" height="92" fill="#000" opacity=".18"/>
+  <text x="32" y="547" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="3" fill="#fff" opacity=".75">SPY X FAMILY</text>
+  <text x="32" y="578" font-family="Arial, Helvetica, sans-serif" font-size="17" fill="#fff" opacity=".6">Plushies · IdaMart</text>
+</svg>
