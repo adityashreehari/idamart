@@ -1,13 +1,16 @@
 package com.idamart.repository;
 
 import com.idamart.entity.Product;
+import jakarta.persistence.LockModeType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -36,4 +39,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<String> findDistinctAnimeSeries();
 
     boolean existsByCategoryId(Long categoryId);
+
+    /**
+     * Loads products AND locks their rows until the transaction ends (SELECT ... FOR UPDATE).
+     * Used at checkout so two customers can't both buy the last item at the same moment.
+     * Ordered by id so transactions always lock in the same order (avoids deadlocks).
+     */
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT p FROM Product p WHERE p.id IN :ids ORDER BY p.id")
+    List<Product> findAllByIdForUpdate(@Param("ids") Collection<Long> ids);
 }
