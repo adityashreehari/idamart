@@ -1,0 +1,346 @@
+/* ==========================================================
+   IdaMart theme — Bootstrap does the layout, this file adds the look.
+   ========================================================== */
+
+:root {
+  --ida-ink: #14121f;          /* near-black, used for the navbar and text */
+  --ida-ink-soft: #3a3550;
+  --ida-paper: #faf7f2;        /* warm off-white page background */
+  --ida-card: #ffffff;
+  --ida-line: #ece6dc;
+  --ida-accent: #e11d48;       /* crimson: buttons, prices, highlights */
+  --ida-accent-dark: #be123c;
+  --ida-gold: #f5b301;
+  --ida-muted: #7a7489;
+  --ida-radius: 16px;
+
+  --bs-body-font-family: 'Inter', system-ui, sans-serif;
+  --bs-body-color: var(--ida-ink);
+  --bs-body-bg: var(--ida-paper);
+  --bs-link-color-rgb: 225, 29, 72;
+  --bs-link-hover-color-rgb: 190, 18, 60;
+}
+
+h1, h2, h3, h4, h5, .brand, .display-font {
+  font-family: 'Outfit', 'Inter', sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Buttons ---------- */
+.btn-ida {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: var(--ida-accent);
+  --bs-btn-border-color: var(--ida-accent);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--ida-accent-dark);
+  --bs-btn-hover-border-color: var(--ida-accent-dark);
+  --bs-btn-active-bg: var(--ida-accent-dark);
+  --bs-btn-disabled-bg: #f3a3b5;
+  --bs-btn-disabled-border-color: #f3a3b5;
+  font-weight: 600;
+  border-radius: 999px;
+  padding-inline: 1.25rem;
+}
+
+.btn-ghost {
+  border-radius: 999px;
+  font-weight: 600;
+  border: 1.5px solid var(--ida-ink);
+  color: var(--ida-ink);
+  padding-inline: 1.25rem;
+}
+.btn-ghost:hover { background: var(--ida-ink); color: #fff; }
+
+/* ---------- Navbar ---------- */
+.ida-navbar {
+  background: var(--ida-ink);
+}
+.ida-navbar .brand {
+  font-weight: 800;
+  font-size: 1.45rem;
+  color: #fff;
+}
+.ida-navbar .brand span { color: var(--ida-accent); }
+.ida-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 500;
+}
+.ida-navbar .nav-link:hover,
+.ida-navbar .nav-link.active { color: #fff; }
+.ida-navbar .nav-link.active { box-shadow: inset 0 -2px 0 var(--ida-accent); }
+
+.nav-search .form-control {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 999px;
+  padding-left: 2.25rem;
+}
+.nav-search .form-control::placeholder { color: rgba(255, 255, 255, 0.5); }
+.nav-search .form-control:focus {
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.35);
+  border-color: var(--ida-accent);
+}
+.nav-search .bi-search {
+  position: absolute;
+  left: 0.85rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(225, 29, 72, 0.35), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(245, 179, 1, 0.22), transparent 40%),
+    var(--ida-ink);
+  color: #fff;
+  border-radius: 0 0 32px 32px;
+}
+.hero h1 { font-weight: 800; line-height: 1.05; }
+.hero h1 em { font-style: normal; color: var(--ida-accent); }
+.hero .lead { color: rgba(255, 255, 255, 0.75); }
+.hero-kanji {
+  position: absolute;
+  right: -1rem;
+  bottom: -3rem;
+  font-size: clamp(8rem, 22vw, 18rem);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.05);
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.hero-stat strong { font-family: 'Outfit', sans-serif; font-size: 1.5rem; display: block; }
+.hero-stat small { color: rgba(255, 255, 255, 0.6); }
+
+/* ---------- Section headings ---------- */
+.section-title {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.section-title h2 { font-weight: 700; margin: 0; }
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ida-accent);
+}
+
+/* ---------- Category tiles ---------- */
+.category-tile {
+  display: block;
+  background: var(--ida-card);
+  border: 1px solid var(--ida-line);
+  border-radius: var(--ida-radius);
+  padding: 1.25rem 1rem;
+  text-decoration: none;
+  color: var(--ida-ink);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  height: 100%;
+}
+.category-tile:hover {
+  transform: translateY(-3px);
+  border-color: var(--ida-accent);
+  box-shadow: 0 10px 24px rgba(20, 18, 31, 0.08);
+  color: var(--ida-ink);
+}
+.category-tile i {
+  font-size: 1.6rem;
+  color: var(--ida-accent);
+}
+.category-tile .name { font-family: 'Outfit', sans-serif; font-weight: 600; }
+
+/* ---------- Anime chips ---------- */
+.chip {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid var(--ida-line);
+  background: var(--ida-card);
+  color: var(--ida-ink);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.15s ease;
+}
+.chip:hover, .chip.active {
+  background: var(--ida-ink);
+  border-color: var(--ida-ink);
+  color: #fff;
+}
+
+/* ---------- Product card ---------- */
+.product-card {
+  background: var(--ida-card);
+  border: 1px solid var(--ida-line);
+  border-radius: var(--ida-radius);
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(20, 18, 31, 0.1);
+}
+.product-card .card-link { text-decoration: none; color: inherit; }
+.product-card .title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.3;
+  min-height: 2.6em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.product-card .anime {
+  font-size: 0.8rem;
+  color: var(--ida-muted);
+  font-weight: 500;
+}
+.price {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  color: var(--ida-accent);
+}
+
+/* Square image with a coloured fallback if the image fails to load */
+.product-image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #2a2540, #14121f);
+  overflow: hidden;
+}
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-image .fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+}
+.product-image .badge-corner {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+}
+.product-image.out-of-stock img,
+.product-image.out-of-stock .fallback { filter: grayscale(0.85) opacity(0.6); }
+
+/* ---------- Stock badges ---------- */
+.stock-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3em 0.65em;
+  border-radius: 999px;
+}
+.stock-badge.in { background: #dcfce7; color: #166534; }
+.stock-badge.low { background: #fef3c7; color: #92400e; }
+.stock-badge.out { background: #e5e7eb; color: #374151; }
+
+/* ---------- Filters ---------- */
+.filter-panel {
+  background: var(--ida-card);
+  border: 1px solid var(--ida-line);
+  border-radius: var(--ida-radius);
+  padding: 1.25rem;
+}
+.filter-panel .form-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ida-muted);
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--ida-accent);
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.18);
+}
+
+/* ---------- Pagination ---------- */
+.pagination .page-link {
+  color: var(--ida-ink);
+  border-radius: 999px !important;
+  margin: 0 0.15rem;
+  border: 1px solid var(--ida-line);
+  min-width: 2.4rem;
+  text-align: center;
+}
+.pagination .page-item.active .page-link {
+  background: var(--ida-ink);
+  border-color: var(--ida-ink);
+  color: #fff;
+}
+
+/* ---------- Product detail ---------- */
+.detail-image {
+  border-radius: 24px;
+  border: 1px solid var(--ida-line);
+}
+.detail-price { font-size: 2rem; }
+.qty-group { max-width: 9rem; }
+.qty-group .btn { border-color: var(--ida-line); }
+.qty-group .form-control { text-align: center; border-color: var(--ida-line); }
+.info-list li {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.35rem 0;
+  color: var(--ida-ink-soft);
+}
+.info-list i { color: var(--ida-accent); }
+
+/* ---------- Skeleton loading cards ---------- */
+.skeleton {
+  background: linear-gradient(90deg, #eee9e1 25%, #f6f2ec 37%, #eee9e1 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.3s ease infinite;
+  border-radius: 8px;
+}
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+/* ---------- Footer ---------- */
+.ida-footer {
+  background: var(--ida-ink);
+  color: rgba(255, 255, 255, 0.65);
+}
+.ida-footer a { color: rgba(255, 255, 255, 0.8); text-decoration: none; }
+.ida-footer a:hover { color: #fff; }
+.ida-footer .brand { color: #fff; font-weight: 800; font-size: 1.3rem; }
+.ida-footer .brand span { color: var(--ida-accent); }
+
+/* ---------- Empty / error states ---------- */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--ida-card);
+  border: 1px dashed var(--ida-line);
+  border-radius: var(--ida-radius);
+}
+.empty-state i { font-size: 2.5rem; color: var(--ida-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
