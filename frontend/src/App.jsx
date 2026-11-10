@@ -2,9 +2,14 @@ import { Route, Routes } from 'react-router-dom';
 import AppNavbar from './components/AppNavbar.jsx';
 import Footer from './components/Footer.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
+import MiniCartDrawer from './components/MiniCartDrawer.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ProductsPage from './pages/ProductsPage.jsx';
 import ProductDetailPage from './pages/ProductDetailPage.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import RegisterPage from './pages/RegisterPage.jsx';
+import CartPage from './pages/CartPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 
 /**
@@ -16,12 +21,22 @@ export default function App() {
     <div className="d-flex flex-column min-vh-100">
       <ScrollToTop />
       <AppNavbar />
+      <MiniCartDrawer />
 
       <main className="flex-grow-1">
         <Routes>
+          {/* Public */}
           <Route path="/" element={<HomePage />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/products/:id" element={<ProductDetailPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+
+          {/* Logged-in users only */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/cart" element={<CartPage />} />
+          </Route>
+
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

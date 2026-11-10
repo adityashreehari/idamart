@@ -1,9 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import ProductImage from '../components/ProductImage.jsx';
 import ProductGrid from '../components/ProductGrid.jsx';
 import StockBadge from '../components/StockBadge.jsx';
 import ErrorMessage from '../components/ErrorMessage.jsx';
+import QuantityStepper from '../components/QuantityStepper.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+import { useCart } from '../context/CartContext.jsx';
+import { useToast } from '../context/ToastContext.jsx';
 import { fetchProduct, fetchProducts } from '../api/catalog';
 import { formatPrice, getErrorMessage } from '../utils/format';
 
@@ -18,6 +22,13 @@ export default function ProductDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [notFound, setNotFound] = useState(false);
+  const [adding, setAdding] = useState(false);
+
+  const { isLoggedIn } = useAuth();
+  const { cart, addItem, openDrawer } = useCart();
+  const { showToast } = useToast();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -82,6 +93,25 @@ export default function ProductDetailPage() {
 
   const outOfStock = product.stock <= 0;
   const maxQty = Math.min(product.stock, MAX_PER_ITEM);
+  const inCart = cart.items.find((i) => i.productId === product.id)?.quantity ?? 0;
+
+  async function handleAddToCart() {
+    if (!isLoggedIn) {
+      showToast('Please log in to add items to your cart.', 'info');
+      navigate(`/login?redirect=${encodeURIComponent(location.pathname)}`);
+      return;
+    }
+    setAdding(true);
+    try {
+      await addItem(product.id, quantity);
+      showToast(`Added ${quantity} × ${product.name} to your cart`);
+      openDrawer();
+    } catch (err) {
+      showToast(getErrorMessage(err), 'error');
+    } finally {
+      setAdding(false);
+    }
+  }
 
   return (
     <div className="container py-4 py-lg-5">
@@ -113,45 +143,32 @@ export default function ProductDetailPage() {
 
           <p className="text-muted mb-4">{product.description}</p>
 
-          <div className="d-flex flex-wrap align-items-center gap-3 mb-4">
-            <div className="input-group qty-group">
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                disabled={outOfStock || quantity <= 1}
-                aria-label="Decrease quantity"
-              >
-                <i className="bi bi-dash" />
-              </button>
-              <input
-                className="form-control"
-                value={outOfStock ? 0 : quantity}
-                readOnly
-                aria-label="Quantity"
-                data-testid="quantity"
-              />
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={() => setQuantity((q) => Math.min(maxQty, q + 1))}
-                disabled={outOfStock || quantity >= maxQty}
-                aria-label="Increase quantity"
-              >
-                <i className="bi bi-plus" />
-              </button>
-            </div>
-
-            {/* Session 7 connects this button to the cart */}
-            <button className="btn btn-ida btn-lg flex-grow-1" disabled data-testid="add-to-cart">
-              <i className="bi bi-bag-plus me-2" />
+          <div className="d-flex flex-wrap align-items-center gap-3 mb-3">
+            <QuantityStepper
+              value={outOfStock ? 0 : quantity}
+              max={maxQty}
+              onChange={setQuantity}
+              disabled={outOfStock || adding}
+              testId="quantity"
+            />
+            <button
+              className="btn btn-ida btn-lg flex-grow-1"
+              onClick={handleAddToCart}
+              disabled={outOfStock || adding}
+              data-testid="add-to-cart"
+            >
+              {adding ? (
+                <span className="spinner-border spinner-border-sm me-2" aria-hidden="true" />
+              ) : (
+                <i className="bi bi-bag-plus me-2" />
+              )}
               {outOfStock ? 'Out of stock' : 'Add to cart'}
             </button>
           </div>
-          {!outOfStock && (
-            <p className="small text-muted mb-4">
-              <i className="bi bi-info-circle me-1" />
-              Login and cart are coming in the next update.
+          {inCart > 0 && (
+            <p className="small text-muted mb-4" data-testid="in-cart-note">
+              <i className="bi bi-check2-circle me-1 text-success" />
+              You already have {inCart} in your cart.
             </p>
           )}
 

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import HeroCarousel from '../components/HeroCarousel.jsx';
 import ProductGrid from '../components/ProductGrid.jsx';
 import ErrorMessage from '../components/ErrorMessage.jsx';
 import { fetchAnimeSeries, fetchCategories, fetchProducts } from '../api/catalog';
@@ -41,48 +42,15 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ---------- Hero ---------- */}
-      <section className="hero py-5 mb-5">
-        <div className="hero-kanji" aria-hidden="true">店</div>
-        <div className="container py-lg-5 position-relative">
-          <div className="row align-items-center">
-            <div className="col-lg-7">
-              <div className="eyebrow mb-3">Anime merch · Delivered in the UAE</div>
-              <h1 className="display-4 mb-3">
-                Your favourite series, <em>on your shelf.</em>
-              </h1>
-              <p className="lead mb-4">
-                Figures, hoodies, manga and collectibles from Naruto, One Piece,
-                Demon Slayer, Jujutsu Kaisen and more.
-              </p>
-              <div className="d-flex flex-wrap gap-2">
-                <Link to="/products" className="btn btn-ida btn-lg" data-testid="shop-now">
-                  Shop now <i className="bi bi-arrow-right ms-1" />
-                </Link>
-                <Link to="/products?sort=price_asc" className="btn btn-outline-light btn-lg rounded-pill">
-                  Best prices
-                </Link>
-              </div>
-            </div>
-            <div className="col-lg-5 mt-5 mt-lg-0">
-              <div className="row text-center g-3">
-                <div className="col-4 hero-stat">
-                  <strong>{loading ? '–' : totalProducts}</strong>
-                  <small>Products</small>
-                </div>
-                <div className="col-4 hero-stat">
-                  <strong>{loading ? '–' : animeSeries.length}</strong>
-                  <small>Series</small>
-                </div>
-                <div className="col-4 hero-stat">
-                  <strong>{loading ? '–' : categories.length}</strong>
-                  <small>Categories</small>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ---------- Rotating banner ---------- */}
+      <HeroCarousel
+        categories={categories}
+        stats={[
+          { label: 'Products', value: loading ? '–' : totalProducts },
+          { label: 'Series', value: loading ? '–' : animeSeries.length },
+          { label: 'Categories', value: loading ? '–' : categories.length },
+        ]}
+      />
 
       <div className="container">
         {error && (
