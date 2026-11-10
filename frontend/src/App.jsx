@@ -4,6 +4,7 @@ import Footer from './components/Footer.jsx';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import MiniCartDrawer from './components/MiniCartDrawer.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import ServerWakeNotice from './components/ServerWakeNotice.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ProductsPage from './pages/ProductsPage.jsx';
 import ProductDetailPage from './pages/ProductDetailPage.jsx';
@@ -25,6 +26,7 @@ export default function App() {
     <div className="d-flex flex-column min-vh-100">
       <ScrollToTop />
       <AppNavbar />
+      <ServerWakeNotice />
       <MiniCartDrawer />
 
       <main className="flex-grow-1">

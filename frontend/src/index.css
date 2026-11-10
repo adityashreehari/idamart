@@ -451,6 +451,16 @@ h1, h2, h3, h4, h5, .brand, .display-font {
 .table-thumb { width: 48px; flex: 0 0 auto; border-radius: 10px; overflow: hidden; }
 .table-thumb .fallback { font-size: 0.45rem; padding: 0.2rem; }
 
+/* ---------- "Waking up the server" note ---------- */
+.wake-notice {
+  background: #fef3c7;
+  color: #78350f;
+  text-align: center;
+  font-size: 0.9rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #fde68a;
+}
+
 /* ---------- Section headings ---------- */
 .section-title {
   display: flex;

@@ -11,7 +11,8 @@ export const LOGOUT_EVENT = 'idamart:logout';
 const api = axios.create({
   baseURL: API_URL,
   headers: { 'Content-Type': 'application/json' },
-  timeout: 15000,
+  // Generous timeout: a sleeping free-tier server can take up to a minute to wake up
+  timeout: 60000,
 });
 
 /**

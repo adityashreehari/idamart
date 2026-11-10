@@ -9,7 +9,7 @@ Run all: right-click `src/test/resources/testng.xml` → Run As → TestNG Suite
 
 Options (Run Configurations → Arguments → VM arguments):
 - `-Dheadless=true`  run without showing the browser
-- `-Dbrowser=edge`   use Microsoft Edge instead of Chrome
+- `-Dbrowser=chrome` use Chrome instead of Edge (the default; Smart App Control may block chromedriver.exe)
 - `-DbaseUrl=https://your-live-site`  test the deployed site (Session 10)
 
 Reports: `automation-tests/test-output/index.html` (TestNG) and
