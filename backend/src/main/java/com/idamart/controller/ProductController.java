@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  * REST endpoints for products.
- * (Session 3 will restrict POST/PUT/DELETE to ADMIN users.)
+ * Security (see SecurityConfig): GET is public, POST/PUT/DELETE are ADMIN only.
  */
 @RestController
 @RequestMapping("/api/products")

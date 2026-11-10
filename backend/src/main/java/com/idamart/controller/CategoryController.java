@@ -16,7 +16,7 @@ import java.util.List;
  * The controller only handles HTTP: read the request, call the service, return the response.
  * All business rules live in the service.
  *
- * (Session 3 will restrict POST/PUT/DELETE to ADMIN users.)
+ * Security (see SecurityConfig): GET is public, POST/PUT/DELETE are ADMIN only.
  */
 @RestController
 @RequestMapping("/api/categories")
