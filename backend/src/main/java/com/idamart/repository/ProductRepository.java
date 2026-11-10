@@ -40,6 +40,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     boolean existsByCategoryId(Long categoryId);
 
+    boolean existsByNameIgnoreCase(String name);
+
     /**
      * Loads products AND locks their rows until the transaction ends (SELECT ... FOR UPDATE).
      * Used at checkout so two customers can't both buy the last item at the same moment.
