@@ -1,5 +1,7 @@
 # ---- Java / Maven ----
 backend/target/
+automation-tests/target/
+automation-tests/test-output/
 *.class
 *.log
 

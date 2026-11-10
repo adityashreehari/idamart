@@ -1,0 +1,17 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!--
+  The test suite: which classes run, in what order.
+  Run everything:          mvn test
+  Run only smoke tests:    mvn test -Dgroups=smoke
+-->
+<suite name="IdaMart UI Tests" verbose="1">
+    <test name="End-to-end">
+        <classes>
+            <class name="com.idamart.automation.tests.BrowseTest"/>
+            <class name="com.idamart.automation.tests.AuthTest"/>
+            <class name="com.idamart.automation.tests.CartTest"/>
+            <class name="com.idamart.automation.tests.CheckoutTest"/>
+            <class name="com.idamart.automation.tests.AdminTest"/>
+        </classes>
+    </test>
+</suite>
